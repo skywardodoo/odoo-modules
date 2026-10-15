@@ -12,21 +12,21 @@
 				</t>
 
 				<div class="mb-3">
-					<h5 class="mb-3">Connect to MCP</h5>
+					<label class="form-label">Connect to MCP</label>
 					<p class="mb-0">
-						<strong t-out="client.name"/> wants to access this database as
-						<strong t-out="user.name"/>.
+						<strong class="text-primary" t-out="client.name"/> wants to access this database as
+						<strong class="text-primary" t-out="user.name"/>.
 					</p>
 				</div>
 
-				<div class="mb-3">
+				<div class="mb-3" t-if="offers_write">
 					<label class="form-label">Permissions</label>
 					<div class="form-check">
 						<input class="form-check-input" type="checkbox" id="grant_read" checked="checked" disabled="disabled"/>
 						<label class="form-check-label" for="grant_read">Read the data you can access</label>
 					</div>
-					<div class="form-check" t-if="offers_write">
-						<input class="form-check-input" type="checkbox" id="grant_write" name="grant_write" value="1" checked="checked"/>
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" id="grant_write" name="grant_write" value="1"/>
 						<label class="form-check-label" for="grant_write">Create and change data</label>
 					</div>
 				</div>

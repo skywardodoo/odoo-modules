@@ -564,3 +564,25 @@ class TestMCPOAuth(MCPHttpCase):
         self.assertIn('oe_login_form', page.text)
         self.assertIn('oe_login_buttons', page.text)
         self.assertIn('Test Client', page.text)
+
+    def test_read_only_consent_has_no_permission_checkboxes(self):
+        _verifier, challenge = make_pkce()
+        self.login(self.member)
+        page = self.get(
+            '/mcp/oauth/authorize', self.authorize_params(challenge),
+        )
+        self.assertNotIn('grant_write', page.text)
+        self.assertNotIn('grant_read', page.text)
+
+    def test_write_consent_offers_an_unticked_checkbox(self):
+        self.client.allow_write = True
+        _verifier, challenge = make_pkce()
+        self.login(self.member)
+        # Offered even though the client did not ask for the write scope.
+        page = self.get(
+            '/mcp/oauth/authorize', self.authorize_params(challenge),
+        )
+        self.assertIn('grant_write', page.text)
+        self.assertNotRegex(
+            page.text, r'name="grant_write"[^>]*checked',
+        )

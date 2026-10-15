@@ -162,8 +162,9 @@ class MCPOAuthController(http.Controller):
         resource = (kw.get('resource') or '').rstrip('/')
         if resource and resource != audience:
             return fail('invalid_target', "Unknown resource.")
-        requested = (kw.get('scope') or '').split()
-        offers_write = client.allow_write and 'mcp:write' in requested
+        # Writing is offered whenever an administrator enabled it on the client;
+        # each user still has to opt in on the consent screen.
+        offers_write = client.allow_write
 
         user = request.env.user
         if user._is_public():
