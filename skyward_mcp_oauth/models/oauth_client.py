@@ -1,6 +1,7 @@
 import hashlib
 import hmac
 import secrets
+from datetime import timedelta
 from urllib.parse import urlsplit
 
 from odoo import api, fields, models, _
@@ -143,6 +144,15 @@ class OAuthClient(models.Model):
         raw = secrets.token_urlsafe(32)
         self.sudo().secret_hash = hash_secret(raw)
         return raw
+
+    @api.autovacuum
+    def _gc_dynamic_clients(self):
+        """Drop self-registered clients nobody ever signed in with."""
+        limit = fields.Datetime.now() - timedelta(days=1)
+        stale = self.sudo().with_context(active_test=False).search([
+            ('dynamic', '=', True), ('create_date', '<', limit),
+        ])
+        stale.filtered(lambda client: not client.grant_ids).unlink()
 
     # ----------------------------------------------------------
     # Actions

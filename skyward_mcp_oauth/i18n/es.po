@@ -1,0 +1,52 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* skyward_mcp_oauth
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.consent
+msgid "Connect to MCP"
+msgstr "Conectar con MCP"
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.consent
+msgid "wants to access this database as"
+msgstr "quiere acceder a esta base de datos como"
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.consent
+msgid "Permissions"
+msgstr "Permisos"
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.consent
+msgid "Read the data you can access"
+msgstr "Leer los datos a los que usted tiene acceso"
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.consent
+msgid "Create and change data"
+msgstr "Crear y modificar datos"
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.consent
+msgid "Allow"
+msgstr "Permitir"
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.consent
+msgid "Deny"
+msgstr "Denegar"
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.error
+msgid "Cannot connect"
+msgstr "No se puede conectar"

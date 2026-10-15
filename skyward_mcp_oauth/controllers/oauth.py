@@ -306,15 +306,23 @@ class MCPOAuthController(http.Controller):
         if clients.search_count([('dynamic', '=', True)]) >= MAX_DYNAMIC_CLIENTS:
             return self._json({'error': 'temporarily_unavailable'}, 429)
         name = str(data.get('client_name') or 'MCP client')[:80]
-        try:
-            client = clients.create({
-                'name': name,
-                'is_public': True,
-                'dynamic': True,
-                'redirect_uris': '\n'.join(uris),
-            })
-        except ValidationError:
-            return self._json({'error': 'invalid_redirect_uri'}, 400)
+        redirect_uris = '\n'.join(uris)
+        # Clients register again on every connection attempt; a public client
+        # holds no secret, so identical metadata can share one registration.
+        client = clients.search([
+            ('dynamic', '=', True), ('name', '=', name),
+            ('redirect_uris', '=', redirect_uris),
+        ], limit=1)
+        if not client:
+            try:
+                client = clients.create({
+                    'name': name,
+                    'is_public': True,
+                    'dynamic': True,
+                    'redirect_uris': redirect_uris,
+                })
+            except ValidationError:
+                return self._json({'error': 'invalid_redirect_uri'}, 400)
         self._audit('register', detail=client.name)
         return self._json({
             'client_id': client.client_id,

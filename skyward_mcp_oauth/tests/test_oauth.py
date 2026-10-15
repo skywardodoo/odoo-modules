@@ -498,3 +498,69 @@ class TestMCPOAuth(MCPHttpCase):
         self.assertTrue(created.dynamic and created.is_public)
         bad = self.register(redirect_uris=['http://evil.example.com/cb'])
         self.assertEqual(bad.status_code, 400)
+
+    def test_identical_registrations_share_one_client(self):
+        self.env['ir.config_parameter'].sudo().set_param(
+            'skyward_mcp_oauth.allow_dynamic_registration', 'True',
+        )
+        body = {'client_name': 'Same', 'redirect_uris': ['https://s.example.com/cb']}
+        first = self.register(**body).json()['client_id']
+        second = self.register(**body).json()['client_id']
+        self.assertEqual(first, second)
+        other = self.register(
+            client_name='Same', redirect_uris=['https://t.example.com/cb'],
+        ).json()['client_id']
+        self.assertNotEqual(first, other)
+
+    def test_unused_dynamic_clients_are_vacuumed(self):
+        Client = self.env['skyward_mcp_oauth.client']
+        unused = Client.create({
+            'name': 'Unused', 'is_public': True, 'dynamic': True,
+            'redirect_uris': 'https://u.example.com/cb',
+        })
+        used = Client.create({
+            'name': 'Used', 'is_public': True, 'dynamic': True,
+            'redirect_uris': 'https://v.example.com/cb',
+        })
+        self.env['skyward_mcp_oauth.grant']._issue(
+            used, self.member, 'read', self.base_url() + '/mcp',
+        )
+        old = fields.Datetime.now() - timedelta(days=2)
+        self.env.cr.execute(
+            "UPDATE skyward_mcp_oauth_client SET create_date = %s WHERE id IN %s",
+            (old, (unused.id, used.id, self.client.id)),
+        )
+        Client.invalidate_model()
+        Client._gc_dynamic_clients()
+        self.assertFalse(unused.exists())
+        self.assertTrue(used.exists())
+        self.assertTrue(self.client.exists())
+
+    # ----------------------------------------------------------
+    # Tests: Consent screen
+    # ----------------------------------------------------------
+
+    def test_consent_screen_is_translated(self):
+        self.env['res.lang']._activate_lang('es_AR')
+        self.env['ir.module.module']._load_module_terms(
+            ['skyward_mcp_oauth'], ['es_AR'],
+        )
+        self.member.lang = 'es_AR'
+        _verifier, challenge = make_pkce()
+        self.login(self.member)
+        page = self.get(
+            '/mcp/oauth/authorize', self.authorize_params(challenge),
+        )
+        self.assertIn('Conectar con MCP', page.text)
+        self.assertIn('Permitir', page.text)
+        self.assertIn('Denegar', page.text)
+
+    def test_consent_screen_follows_the_login_layout(self):
+        _verifier, challenge = make_pkce()
+        self.login(self.member)
+        page = self.get(
+            '/mcp/oauth/authorize', self.authorize_params(challenge),
+        )
+        self.assertIn('oe_login_form', page.text)
+        self.assertIn('oe_login_buttons', page.text)
+        self.assertIn('Test Client', page.text)
