@@ -1,40 +1,77 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* skyward_mcp_oauth
+# 	* skyward_mcp_oauth
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0\n"
+"Project-Id-Version: Odoo Server 18.0-20260908\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-15 17:08+0000\n"
+"PO-Revision-Date: 2026-10-15 17:08+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 "Language: es\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: skyward_mcp_oauth
-#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.consent
-msgid "Connect to MCP"
-msgstr "Conectar con MCP"
+#. odoo-python
+#: code:addons/skyward_mcp_oauth/models/base.py:0
+msgid "%(client)s: %(scope)s"
+msgstr "%(client)s: %(scope)s"
 
 #. module: skyward_mcp_oauth
-#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.consent
-msgid "wants to access this database as"
-msgstr "quiere acceder a esta base de datos como"
+#. odoo-python
+#: code:addons/skyward_mcp_oauth/models/base.py:0
+msgid "%(client)s: user denied"
+msgstr "%(client)s: el usuario denegó el acceso"
 
 #. module: skyward_mcp_oauth
-#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.consent
-msgid "Permissions"
-msgstr "Permisos"
+#. odoo-python
+#: code:addons/skyward_mcp_oauth/models/base.py:0
+msgid "%(client)s: user not allowed"
+msgstr "%(client)s: usuario no autorizado"
 
 #. module: skyward_mcp_oauth
-#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.consent
-msgid "Read the data you can access"
-msgstr "Leer los datos a los que usted tiene acceso"
+#: model:ir.model.constraint,message:skyward_mcp_oauth.constraint_skyward_mcp_oauth_grant_key_unique
+msgid "A key can belong to a single grant."
+msgstr "Una clave solo puede pertenecer a una autorización."
 
 #. module: skyward_mcp_oauth
-#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.consent
-msgid "Create and change data"
-msgstr "Crear y modificar datos"
+#: model:ir.model.fields,help:skyward_mcp_oauth.field_skyward_mcp_oauth_client__is_public
+msgid "A public client has no secret and relies on PKCE only."
+msgstr "Un cliente público no tiene secreto y se apoya solo en PKCE."
+
+#. module: skyward_mcp_oauth
+#. odoo-python
+#: code:addons/skyward_mcp_oauth/models/oauth_client.py:0
+msgid "A public client has no secret."
+msgstr "Un cliente público no tiene secreto."
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,help:skyward_mcp_oauth.field_res_config_settings__mcp_oauth_refresh_grace_seconds
+msgid ""
+"A refresh token reused within this window right after a rotation is treated "
+"as a retry instead of a theft."
+msgstr "Un token de renovación reutilizado dentro de esta ventana, justo después de una rotación, se considera un reintento y no un robo."
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_grant__access_expires
+msgid "Access Token Expires"
+msgstr "Vencimiento del token de acceso"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_res_config_settings__mcp_oauth_access_token_minutes
+msgid "Access Token Lifetime (minutes)"
+msgstr "Duración del token de acceso (minutos)"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_client__active
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.view_oauth_grant_search
+msgid "Active"
+msgstr "Activo"
 
 #. module: skyward_mcp_oauth
 #: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.consent
@@ -42,11 +79,481 @@ msgid "Allow"
 msgstr "Permitir"
 
 #. module: skyward_mcp_oauth
-#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.consent
-msgid "Deny"
-msgstr "Denegar"
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_res_config_settings__mcp_oauth_dynamic_registration
+msgid "Allow Dynamic Client Registration"
+msgstr "Permitir el registro dinámico de clientes"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_client__allow_write
+msgid "Allow Write Scope"
+msgstr "Permitir alcance de escritura"
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.view_oauth_client_form
+msgid "Archived"
+msgstr "Archivado"
+
+#. module: skyward_mcp_oauth
+#. odoo-python
+#: code:addons/skyward_mcp_oauth/models/oauth_client.py:0
+msgid "At least one redirect URI is required."
+msgstr "Se requiere al menos una URI de redirección."
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_grant__resource
+msgid "Audience"
+msgstr "Audiencia"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.constraint,message:skyward_mcp_oauth.constraint_skyward_mcp_oauth_code_code_hash_unique
+msgid "Authorization code hashes must be unique."
+msgstr "Los hashes de los códigos de autorización deben ser únicos."
 
 #. module: skyward_mcp_oauth
 #: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.error
 msgid "Cannot connect"
 msgstr "No se puede conectar"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_code__client_id
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_grant__client_id
+msgid "Client"
+msgstr "Cliente"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_client__client_id
+msgid "Client ID"
+msgstr "ID de cliente"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_code__code_challenge
+msgid "Code Challenge"
+msgstr "Desafío de código"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_code__code_hash
+msgid "Code Hash"
+msgstr "Hash del código"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model,name:skyward_mcp_oauth.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.consent
+msgid "Connect to MCP"
+msgstr "Conectar con MCP"
+
+#. module: skyward_mcp_oauth
+#. odoo-python
+#: code:addons/skyward_mcp_oauth/models/oauth_client.py:0
+msgid "Copy it now, it is shown only once: %s"
+msgstr "Cópielo ahora, se muestra una sola vez: %s"
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.consent
+msgid "Create and change data"
+msgstr "Crear y modificar datos"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_client__create_uid
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_code__create_uid
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_grant__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_client__create_date
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_code__create_date
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_grant__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.consent
+msgid "Deny"
+msgstr "Denegar"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_client__display_name
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_code__display_name
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_grant__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.view_res_config_settings_form
+msgid "Dynamic Client Registration"
+msgstr "Registro dinámico de clientes"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_client__dynamic
+msgid "Dynamically Registered"
+msgstr "Registrado dinámicamente"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_code__expires_at
+msgid "Expires At"
+msgstr "Vence el"
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.view_oauth_client_form
+msgid "Generate Secret"
+msgstr "Generar secreto"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_code__grant_id
+msgid "Grant"
+msgstr "Autorización"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_client__grant_ids
+msgid "Grants"
+msgstr "Autorizaciones"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model,name:skyward_mcp_oauth.model_ir_http
+msgid "HTTP Routing"
+msgstr "Enrutamiento HTTP"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_client__id
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_code__id
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_grant__id
+msgid "ID"
+msgstr "ID"
+
+#. module: skyward_mcp_oauth
+#. odoo-python
+#: code:addons/skyward_mcp_oauth/models/oauth_client.py:0
+msgid ""
+"Invalid redirect URI %s: it must be https (http is only allowed for loopback"
+" addresses) and carry no fragment."
+msgstr "URI de redirección inválida %s: debe ser https (http solo se permite para direcciones locales) y no incluir fragmento."
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_grant__last_refresh
+msgid "Last Refresh"
+msgstr "Última renovación"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_client__write_uid
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_code__write_uid
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_grant__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_client__write_date
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_code__write_date
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_grant__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,help:skyward_mcp_oauth.field_res_config_settings__mcp_oauth_dynamic_registration
+msgid ""
+"Let MCP clients register themselves (RFC 7591). Users still have to sign in "
+"and approve each client."
+msgstr "Permite que los clientes MCP se registren solos (RFC 7591). Los usuarios igualmente deben iniciar sesión y aprobar cada cliente."
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.view_res_config_settings_form
+msgid ""
+"Let MCP clients register themselves. Users still sign in and approve each "
+"client."
+msgstr "Permite que los clientes MCP se registren solos. Los usuarios igualmente inician sesión y aprueban cada cliente."
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,help:skyward_mcp_oauth.field_skyward_mcp_oauth_client__allow_write
+msgid ""
+"Let this client obtain tokens with the read & write scope. Read only "
+"otherwise."
+msgstr "Permite que este cliente obtenga tokens con alcance de lectura y escritura. Si no, solo lectura."
+
+#. module: skyward_mcp_oauth
+#: model:ir.module.category,name:skyward_mcp_oauth.module_category_mcp
+msgid "MCP"
+msgstr "MCP"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model,name:skyward_mcp_oauth.model_muk_mcp_key
+msgid "MCP API Key"
+msgstr "Clave API de MCP"
+
+#. module: skyward_mcp_oauth
+#: model:res.groups,name:skyward_mcp_oauth.group_mcp_user
+msgid "MCP Access"
+msgstr "Acceso MCP"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_grant__key_id
+msgid "MCP Key"
+msgstr "Clave MCP"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model,name:skyward_mcp_oauth.model_skyward_mcp_oauth_code
+msgid "MCP OAuth Authorization Code"
+msgstr "Código de autorización OAuth de MCP"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model,name:skyward_mcp_oauth.model_skyward_mcp_oauth_client
+msgid "MCP OAuth Client"
+msgstr "Cliente OAuth de MCP"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model,name:skyward_mcp_oauth.model_skyward_mcp_oauth_grant
+msgid "MCP OAuth Grant"
+msgstr "Autorización OAuth de MCP"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model,name:skyward_mcp_oauth.model_skyward_mcp_oauth_base
+msgid "MCP OAuth Helper"
+msgstr "Asistente OAuth de MCP"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_client__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: skyward_mcp_oauth
+#. odoo-python
+#: code:addons/skyward_mcp_oauth/models/oauth_client.py:0
+msgid "New client secret"
+msgstr "Nuevo secreto del cliente"
+
+#. module: skyward_mcp_oauth
+#. odoo-python
+#: code:addons/skyward_mcp_oauth/controllers/oauth.py:0
+msgid "Not signed in."
+msgstr "No se inició sesión."
+
+#. module: skyward_mcp_oauth
+#: model:ir.actions.act_window,name:skyward_mcp_oauth.action_oauth_client
+#: model:ir.ui.menu,name:skyward_mcp_oauth.menu_oauth_clients
+msgid "OAuth Clients"
+msgstr "Clientes OAuth"
+
+#. module: skyward_mcp_oauth
+#: model:ir.actions.act_window,name:skyward_mcp_oauth.action_oauth_grant
+#: model:ir.ui.menu,name:skyward_mcp_oauth.menu_oauth_grants
+msgid "OAuth Grants"
+msgstr "Autorizaciones OAuth"
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.view_res_config_settings_form
+msgid "OAuth Token Lifetime"
+msgstr "Duración de los tokens OAuth"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,help:skyward_mcp_oauth.field_skyward_mcp_oauth_client__redirect_uris
+msgid "One URI per line. Matched exactly."
+msgstr "Una URI por línea. Debe coincidir exactamente."
+
+#. module: skyward_mcp_oauth
+#. odoo-python
+#: code:addons/skyward_mcp_oauth/controllers/oauth.py:0
+msgid "Only code is supported."
+msgstr "Solo se admite el flujo con código."
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,help:skyward_mcp_oauth.field_res_config_settings__mcp_oauth_require_group
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.view_res_config_settings_form
+msgid ""
+"Only members of the MCP Access group can use MCP, with an OAuth token or a "
+"manual key."
+msgstr "Solo los miembros del grupo Acceso MCP pueden usar MCP, ya sea con un token OAuth o con una clave manual."
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,help:skyward_mcp_oauth.field_res_config_settings__mcp_oauth_base_url
+msgid ""
+"Override the URL advertised in the OAuth metadata. Leave empty to use the "
+"one of the incoming request."
+msgstr "Reemplaza la URL publicada en los metadatos de OAuth. Dejar vacío para usar la de la solicitud entrante."
+
+#. module: skyward_mcp_oauth
+#. odoo-python
+#: code:addons/skyward_mcp_oauth/controllers/oauth.py:0
+msgid "PKCE with S256 is required."
+msgstr "Se requiere PKCE con S256."
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.consent
+msgid "Permissions"
+msgstr "Permisos"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_grant__previous_refresh_hash
+msgid "Previous Refresh Hash"
+msgstr "Hash de renovación anterior"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_res_config_settings__mcp_oauth_base_url
+msgid "Public Base URL"
+msgstr "URL base pública"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_client__is_public
+msgid "Public Client"
+msgstr "Cliente público"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields.selection,name:skyward_mcp_oauth.selection__skyward_mcp_oauth_grant__scope__write
+msgid "Read & Write"
+msgstr "Lectura y escritura"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields.selection,name:skyward_mcp_oauth.selection__skyward_mcp_oauth_grant__scope__read
+msgid "Read Only"
+msgstr "Solo lectura"
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.consent
+msgid "Read the data you can access"
+msgstr "Leer los datos a los que usted tiene acceso"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_client__redirect_uris
+msgid "Redirect URIs"
+msgstr "URIs de redirección"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_code__redirect_uri
+msgid "Redirect Uri"
+msgstr "URI de redirección"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_res_config_settings__mcp_oauth_refresh_grace_seconds
+msgid "Refresh Grace Window (seconds)"
+msgstr "Ventana de gracia de renovación (segundos)"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_grant__refresh_hash
+msgid "Refresh Hash"
+msgstr "Hash de renovación"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_grant__refresh_expires
+msgid "Refresh Token Expires"
+msgstr "Vencimiento del token de renovación"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_res_config_settings__mcp_oauth_refresh_token_days
+msgid "Refresh Token Lifetime (days)"
+msgstr "Duración del token de renovación (días)"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.constraint,message:skyward_mcp_oauth.constraint_skyward_mcp_oauth_grant_refresh_hash_unique
+msgid "Refresh token hashes must be unique."
+msgstr "Los hashes de los tokens de renovación deben ser únicos."
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_res_config_settings__mcp_oauth_require_group
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.view_res_config_settings_form
+msgid "Require MCP Access Group"
+msgstr "Exigir el grupo Acceso MCP"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_code__resource
+msgid "Resource"
+msgstr "Recurso"
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.view_oauth_grant_list
+msgid "Revoke"
+msgstr "Revocar"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_grant__revoked
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.view_oauth_grant_search
+msgid "Revoked"
+msgstr "Revocada"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_code__scope
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_grant__scope
+msgid "Scope"
+msgstr "Alcance"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_client__secret_hash
+msgid "Secret Hash"
+msgstr "Hash del secreto"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,help:skyward_mcp_oauth.field_skyward_mcp_oauth_client__name
+msgid "Shown to the user on the consent screen."
+msgstr "Se muestra al usuario en la pantalla de consentimiento."
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,help:skyward_mcp_oauth.field_skyward_mcp_oauth_grant__resource
+msgid "The MCP endpoint these tokens are valid for."
+msgstr "El endpoint MCP para el que valen estos tokens."
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.constraint,message:skyward_mcp_oauth.constraint_skyward_mcp_oauth_client_client_id_unique
+msgid "The client ID must be unique."
+msgstr "El ID de cliente debe ser único."
+
+#. module: skyward_mcp_oauth
+#. odoo-python
+#: code:addons/skyward_mcp_oauth/controllers/oauth.py:0
+msgid "The user denied the request."
+msgstr "El usuario denegó la solicitud."
+
+#. module: skyward_mcp_oauth
+#. odoo-python
+#: code:addons/skyward_mcp_oauth/controllers/oauth.py:0
+msgid "This user is not allowed to use MCP."
+msgstr "Este usuario no está autorizado para usar MCP."
+
+#. module: skyward_mcp_oauth
+#. odoo-python
+#: code:addons/skyward_mcp_oauth/controllers/oauth.py:0
+msgid "Unknown client or redirect URI."
+msgstr "Cliente o URI de redirección desconocidos."
+
+#. module: skyward_mcp_oauth
+#. odoo-python
+#: code:addons/skyward_mcp_oauth/controllers/oauth.py:0
+msgid "Unknown resource."
+msgstr "Recurso desconocido."
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_code__used
+msgid "Used"
+msgstr "Usado"
+
+#. module: skyward_mcp_oauth
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_code__user_id
+#: model:ir.model.fields,field_description:skyward_mcp_oauth.field_skyward_mcp_oauth_grant__user_id
+msgid "User"
+msgstr "Usuario"
+
+#. module: skyward_mcp_oauth
+#: model:res.groups,comment:skyward_mcp_oauth.group_mcp_user
+msgid "Users who may sign in to the MCP server and generate MCP keys."
+msgstr "Usuarios que pueden iniciar sesión en el servidor MCP y generar claves MCP."
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.view_oauth_client_form
+msgid "https://claude.ai/api/mcp/auth_callback"
+msgstr "https://claude.ai/api/mcp/auth_callback"
+
+#. module: skyward_mcp_oauth
+#. odoo-python
+#: code:addons/skyward_mcp_oauth/models/base.py:0
+msgid "read and write"
+msgstr "lectura y escritura"
+
+#. module: skyward_mcp_oauth
+#. odoo-python
+#: code:addons/skyward_mcp_oauth/models/base.py:0
+msgid "read only"
+msgstr "solo lectura"
+
+#. module: skyward_mcp_oauth
+#: model_terms:ir.ui.view,arch_db:skyward_mcp_oauth.consent
+msgid "wants to access this database as"
+msgstr "quiere acceder a esta base de datos como"

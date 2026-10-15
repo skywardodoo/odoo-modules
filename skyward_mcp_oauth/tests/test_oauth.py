@@ -1,5 +1,6 @@
 import base64
 import hashlib
+import io
 import re
 import secrets
 from datetime import timedelta
@@ -9,6 +10,7 @@ from odoo import fields
 from odoo.exceptions import AccessError
 from odoo.tests import tagged
 from odoo.tests.common import new_test_user
+from odoo.tools.translate import trans_export
 
 from odoo.addons.muk_mcp.tests.common import MCPHttpCase
 
@@ -554,6 +556,30 @@ class TestMCPOAuth(MCPHttpCase):
         self.assertIn('Conectar con MCP', page.text)
         self.assertIn('Permitir', page.text)
         self.assertIn('Denegar', page.text)
+
+    def test_module_is_fully_translated_to_spanish(self):
+        self.env['res.lang']._activate_lang('es_AR')
+        self.env['ir.module.module']._load_module_terms(
+            ['skyward_mcp_oauth'], ['es_AR'], overwrite=True,
+        )
+        buffer = io.BytesIO()
+        trans_export('es_AR', ['skyward_mcp_oauth'], buffer, 'po', self.env.cr)
+        text = buffer.getvalue().decode()
+        pairs = re.findall(
+            r'msgid ((?:"[^\n]*"\n)+)msgstr ((?:"[^\n]*"\n?)+)', text,
+        )
+        join = lambda block: ''.join(re.findall(r'"(.*)"', block))
+        # Spelled the same in Spanish: exported with an empty translation.
+        same_in_spanish = {
+            'ID', 'MCP', '%(client)s: %(scope)s',
+            'https://claude.ai/api/mcp/auth_callback',
+        }
+        untranslated = sorted({
+            join(source) for source, target in pairs
+            if join(source) and not join(target)
+        } - same_in_spanish)
+        self.assertTrue(pairs)
+        self.assertEqual(untranslated, [])
 
     def test_consent_screen_follows_the_login_layout(self):
         _verifier, challenge = make_pkce()

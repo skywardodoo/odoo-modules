@@ -18,6 +18,20 @@ class OAuthBase(models.AbstractModel):
         return request.httprequest.host_url.rstrip('/')
 
     @api.model
+    def audit_text(self, kind, client, scope=None):
+        """Audit log wording, in the language of the company."""
+        lang = self.env.company.partner_id.lang or 'en_US'
+        env = self.with_context(lang=lang).env
+        if kind == 'not_allowed':
+            return env._("%(client)s: user not allowed", client=client)
+        if kind == 'denied':
+            return env._("%(client)s: user denied", client=client)
+        label = (
+            env._("read and write") if scope == 'write' else env._("read only")
+        )
+        return env._("%(client)s: %(scope)s", client=client, scope=label)
+
+    @api.model
     def audit(self, event, status='ok', user=None, key=None, detail=None):
         """Record an OAuth event in the MCP audit log. Never stores secrets."""
         if not config.get('mcp_logging', True):

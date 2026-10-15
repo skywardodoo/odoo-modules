@@ -1,6 +1,6 @@
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
-from odoo import http
+from odoo import _, http
 from odoo.exceptions import ValidationError
 from odoo.http import request
 from odoo.tools.misc import str2bool
@@ -57,6 +57,11 @@ class MCPOAuthController(http.Controller):
 
     def _client(self):
         return request.env['skyward_mcp_oauth.client'].sudo()
+
+    def _audit_text(self, kind, client, scope=None):
+        return request.env['skyward_mcp_oauth.base'].audit_text(
+            kind, client, scope,
+        )
 
     def _audit(self, event, status='ok', user=None, key=None, detail=None):
         request.env['skyward_mcp_oauth.base'].audit(
@@ -143,7 +148,7 @@ class MCPOAuthController(http.Controller):
         redirect_uri = kw.get('redirect_uri')
         if not client or not client._check_redirect_uri(redirect_uri):
             return self._error_page(OAuthError(
-                'invalid_request', "Unknown client or redirect URI.",
+                'invalid_request', _("Unknown client or redirect URI."),
             ))
         state = kw.get('state')
 
@@ -154,14 +159,14 @@ class MCPOAuthController(http.Controller):
             )
 
         if kw.get('response_type') != 'code':
-            return fail('unsupported_response_type', "Only code is supported.")
+            return fail('unsupported_response_type', _("Only code is supported."))
         challenge = kw.get('code_challenge')
         if not challenge or kw.get('code_challenge_method') != 'S256':
-            return fail('invalid_request', "PKCE with S256 is required.")
+            return fail('invalid_request', _("PKCE with S256 is required."))
         audience = '%s/mcp' % self._base_url()
         resource = (kw.get('resource') or '').rstrip('/')
         if resource and resource != audience:
-            return fail('invalid_target', "Unknown resource.")
+            return fail('invalid_target', _("Unknown resource."))
         # Writing is offered whenever an administrator enabled it on the client;
         # each user still has to opt in on the consent screen.
         offers_write = client.allow_write
@@ -169,31 +174,33 @@ class MCPOAuthController(http.Controller):
         user = request.env.user
         if user._is_public():
             if request.httprequest.method != 'GET':
-                return fail('access_denied', "Not signed in.")
+                return fail('access_denied', _("Not signed in."))
             return request.redirect('/web/login?%s' % urlencode({
                 'redirect': request.httprequest.full_path,
             }))
         if not request.env['muk_mcp.key']._user_allowed(user):
             self._audit(
                 'authorize', 'denied', user,
-                detail="%s: user not allowed" % client.name,
+                detail=self._audit_text('not_allowed', client.name),
             )
-            return fail('access_denied', "This user is not allowed to use MCP.")
+            return fail(
+                'access_denied', _("This user is not allowed to use MCP."),
+            )
 
         if request.httprequest.method == 'POST':
             if kw.get('decision') != 'approve':
                 self._audit(
                     'authorize', 'denied', user,
-                    detail="%s: user denied" % client.name,
+                    detail=self._audit_text('denied', client.name),
                 )
-                return fail('access_denied', "The user denied the request.")
+                return fail('access_denied', _("The user denied the request."))
             # The user may narrow what the client asked for, never widen it.
             scope = 'write' if (
                 offers_write and kw.get('grant_write') == '1'
             ) else 'read'
             self._audit(
                 'authorize', 'ok', user,
-                detail="%s: %s" % (client.name, scope),
+                detail=self._audit_text('granted', client.name, scope),
             )
             code = request.env['skyward_mcp_oauth.code']._issue(
                 client, user, redirect_uri, challenge, scope, audience,
@@ -247,7 +254,7 @@ class MCPOAuthController(http.Controller):
                 code.write({'used': True, 'grant_id': grant.id})
                 self._audit(
                     'token', 'ok', code.user_id, grant.key_id,
-                    detail="%s: %s" % (client.name, scope),
+                    detail=self._audit_text('granted', client.name, scope),
                 )
             elif grant_type == 'refresh_token':
                 grant, tokens = env['skyward_mcp_oauth.grant']._refresh(
