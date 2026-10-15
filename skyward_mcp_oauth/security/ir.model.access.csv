@@ -1,0 +1,4 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_skyward_mcp_oauth_client_admin,access_skyward_mcp_oauth_client_admin,model_skyward_mcp_oauth_client,base.group_system,1,1,1,1
+access_skyward_mcp_oauth_grant_admin,access_skyward_mcp_oauth_grant_admin,model_skyward_mcp_oauth_grant,base.group_system,1,1,0,1
+access_skyward_mcp_oauth_code_admin,access_skyward_mcp_oauth_code_admin,model_skyward_mcp_oauth_code,base.group_system,1,0,0,0

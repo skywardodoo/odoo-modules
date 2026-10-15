@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+	<record id="view_oauth_grant_list" model="ir.ui.view">
+		<field name="name">skyward_mcp_oauth.grant.list</field>
+		<field name="model">skyward_mcp_oauth.grant</field>
+		<field name="arch" type="xml">
+			<list create="0" edit="0" decoration-muted="revoked">
+				<field name="user_id"/>
+				<field name="client_id"/>
+				<field name="scope"/>
+				<field name="create_date"/>
+				<field name="last_refresh"/>
+				<field name="refresh_expires"/>
+				<field name="revoked"/>
+				<button name="action_revoke" type="object" string="Revoke" icon="fa-ban" invisible="revoked"/>
+			</list>
+		</field>
+	</record>
+
+	<record id="view_oauth_grant_search" model="ir.ui.view">
+		<field name="name">skyward_mcp_oauth.grant.search</field>
+		<field name="model">skyward_mcp_oauth.grant</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="user_id"/>
+				<field name="client_id"/>
+				<filter name="active" string="Active" domain="[('revoked', '=', False)]"/>
+				<filter name="revoked" string="Revoked" domain="[('revoked', '=', True)]"/>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_oauth_grant" model="ir.actions.act_window">
+		<field name="name">OAuth Grants</field>
+		<field name="res_model">skyward_mcp_oauth.grant</field>
+		<field name="view_mode">list</field>
+		<field name="context">{'search_default_active': 1}</field>
+	</record>
+
+</odoo>

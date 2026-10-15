@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+	<record id="view_res_config_settings_form" model="ir.ui.view">
+		<field name="name">res.config.settings.form.mcp.oauth</field>
+		<field name="model">res.config.settings</field>
+		<field name="inherit_id" ref="muk_mcp.view_res_config_settings_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//block[@name='mcp_settings']" position="inside">
+				<setting
+					id="mcp_oauth_require_group"
+					string="Require MCP Access Group"
+					help="Only members of the MCP Access group can use MCP, with an OAuth token or a manual key."
+				>
+					<field name="mcp_oauth_require_group"/>
+				</setting>
+				<setting
+					id="mcp_oauth_dynamic_registration"
+					string="Dynamic Client Registration"
+					help="Let MCP clients register themselves. Users still sign in and approve each client."
+				>
+					<field name="mcp_oauth_dynamic_registration"/>
+				</setting>
+				<setting id="mcp_oauth_tokens" string="OAuth Token Lifetime">
+					<div class="content-group mt16">
+						<div class="row">
+							<label class="col-4" for="mcp_oauth_access_token_minutes"/>
+							<field name="mcp_oauth_access_token_minutes" class="col-2"/>
+						</div>
+						<div class="row">
+							<label class="col-4" for="mcp_oauth_refresh_token_days"/>
+							<field name="mcp_oauth_refresh_token_days" class="col-2"/>
+						</div>
+						<div class="row">
+							<label class="col-4" for="mcp_oauth_refresh_grace_seconds"/>
+							<field name="mcp_oauth_refresh_grace_seconds" class="col-2"/>
+						</div>
+						<div class="row">
+							<label class="col-4" for="mcp_oauth_base_url"/>
+							<field name="mcp_oauth_base_url" class="col-6"/>
+						</div>
+					</div>
+				</setting>
+			</xpath>
+		</field>
+	</record>
+
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+	<menuitem
+		id="menu_oauth_clients"
+		name="OAuth Clients"
+		parent="muk_mcp.menu_mcp_root"
+		action="action_oauth_client"
+		sequence="80"
+	/>
+
+	<menuitem
+		id="menu_oauth_grants"
+		name="OAuth Grants"
+		parent="muk_mcp.menu_mcp_root"
+		action="action_oauth_grant"
+		sequence="85"
+	/>
+
+</odoo>

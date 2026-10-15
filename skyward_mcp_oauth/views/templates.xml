@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+	<template id="consent" name="MCP OAuth Consent">
+		<t t-call="web.login_layout">
+			<t t-set="disable_footer" t-value="True"/>
+			<t t-set="disable_database_manager" t-value="True"/>
+			<form method="post" action="/mcp/oauth/authorize">
+				<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+				<t t-foreach="fields.items()" t-as="field">
+					<input type="hidden" t-att-name="field[0]" t-att-value="field[1]"/>
+				</t>
+				<h5 class="text-center mb-3">Connect to MCP</h5>
+				<p>
+					<strong t-out="client.name"/> wants to access this database as
+					<strong t-out="user.name"/>.
+				</p>
+				<p class="text-muted small mb-2">Choose what it may do:</p>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" id="grant_read" checked="checked" disabled="disabled"/>
+					<label class="form-check-label" for="grant_read">Read the data you can access</label>
+				</div>
+				<div class="form-check mb-3" t-if="offers_write">
+					<input class="form-check-input" type="checkbox" id="grant_write" name="grant_write" value="1" checked="checked"/>
+					<label class="form-check-label" for="grant_write">Create and change data</label>
+				</div>
+				<div class="d-grid gap-2">
+					<button type="submit" name="decision" value="approve" class="btn btn-primary">Allow</button>
+					<button type="submit" name="decision" value="deny" class="btn btn-secondary">Deny</button>
+				</div>
+			</form>
+		</t>
+	</template>
+
+	<template id="error" name="MCP OAuth Error">
+		<t t-call="web.login_layout">
+			<t t-set="disable_footer" t-value="True"/>
+			<t t-set="disable_database_manager" t-value="True"/>
+			<h5 class="text-center mb-3">Cannot connect</h5>
+			<p class="alert alert-danger" t-out="description or error"/>
+		</t>
+	</template>
+
+</odoo>
