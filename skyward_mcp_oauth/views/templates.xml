@@ -31,9 +31,13 @@
 					</div>
 				</div>
 
+				<!-- Odoo's login widget (bound to .oe_login_form) disables the FIRST
+				     submit button of the form on submit, and a disabled submitter is
+				     not sent. Deny comes first in the DOM so the one that gets
+				     disabled is never Allow; order-* keeps Allow on top visually. -->
 				<div class="oe_login_buttons text-center gap-1 d-grid mb-1 pt-3">
-					<button type="submit" name="decision" value="approve" class="btn btn-primary">Allow</button>
-					<button type="submit" name="decision" value="deny" class="btn btn-link btn-sm">Deny</button>
+					<button type="submit" name="decision" value="deny" class="btn btn-link btn-sm order-2">Deny</button>
+					<button type="submit" name="decision" value="approve" class="btn btn-primary order-1">Allow</button>
 				</div>
 			</form>
 		</t>

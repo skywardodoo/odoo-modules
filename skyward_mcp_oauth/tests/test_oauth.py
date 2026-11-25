@@ -591,6 +591,21 @@ class TestMCPOAuth(MCPHttpCase):
         self.assertIn('oe_login_buttons', page.text)
         self.assertIn('Test Client', page.text)
 
+    def test_allow_is_not_the_button_odoo_disables_on_submit(self):
+        # Odoo's login widget disables the first submit button of an
+        # .oe_login_form on submit and the browser then drops its value, so
+        # Allow would reach the controller without a decision (read as denied).
+        _verifier, challenge = make_pkce()
+        self.login(self.member)
+        page = self.get(
+            '/mcp/oauth/authorize', self.authorize_params(challenge),
+        )
+        buttons = re.findall(
+            r'<button[^>]*type="submit"[^>]*value="(\w+)"', page.text,
+        )
+        self.assertEqual(sorted(buttons), ['approve', 'deny'])
+        self.assertEqual(buttons[0], 'deny')
+
     def test_read_only_consent_has_no_permission_checkboxes(self):
         _verifier, challenge = make_pkce()
         self.login(self.member)
